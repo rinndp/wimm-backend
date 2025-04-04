@@ -4,6 +4,7 @@ from django.db.models import OneToOneField, ForeignKey
 from users.models import CustomUser
 
 
+
 class Debtor(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False, verbose_name='Nombre del deudor')
     debt = models.FloatField(blank=True, null=True, verbose_name='Deuda')
