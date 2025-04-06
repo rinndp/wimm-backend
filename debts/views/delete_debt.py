@@ -11,11 +11,6 @@ class DeleteDebtView(APIView):
     permission_classes = (AllowAny,)
 
     def delete(self, request, debt_id):
-        if not debt_id:
-            return Response({
-                    "error":"/debts/{debt_id} debt_id cannot be null"},
-                    status=HTTP_400_BAD_REQUEST)
-
         try:
             debt = Debt.objects.get(id=debt_id)
         except Debt.DoesNotExist:
