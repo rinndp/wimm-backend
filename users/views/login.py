@@ -18,7 +18,7 @@ class LoginView(APIView):
         try:
             user = CustomUser.objects.get(email=email)
             if user.check_password(password):
-                return Response({"message" : 'Login Successful'}, status=status.HTTP_200_OK)
+                return Response({"slug": user.slug}, status=status.HTTP_200_OK)
             else:
                 return Response({"error": 'Invalid password'}, status=status.HTTP_401_UNAUTHORIZED)
         except CustomUser.DoesNotExist:

@@ -18,6 +18,6 @@ class GetDebtsByDebtorView(APIView):
         except Debtor.DoesNotExist:
             return Response({"error":"Debtor not found with id: "+debtor_id}, status=HTTP_400_BAD_REQUEST)
 
-        debts = Debt.objects.filter(debtor=debtor).all()
+        debts = Debt.objects.filter(debtor=debtor).order_by("-updated_at")
         serializer = GetDebtsByDebtorSerializer(debts, many=True)
         return Response(serializer.data, status=HTTP_200_OK)

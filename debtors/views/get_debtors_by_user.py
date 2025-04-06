@@ -17,6 +17,6 @@ class GetDebtorsByUserView(APIView):
                 "error" : "User not found with slug: "+user_slug},
                 status=HTTP_404_NOT_FOUND)
 
-        debtors = Debtor.objects.filter(user__slug=user_slug).all()
+        debtors = Debtor.objects.filter(user__slug=user_slug).order_by("-updated_at")
         serializer = GetDebtorsByUserSerializer(debtors, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
