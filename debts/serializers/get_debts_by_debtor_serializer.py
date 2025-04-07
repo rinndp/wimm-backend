@@ -6,5 +6,5 @@ from debts.models import Debt
 class GetDebtsByDebtorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Debt
-        fields = ('id', 'description', 'debt')
+        fields = ('id', 'description', 'debt', 'updated_at')
 
