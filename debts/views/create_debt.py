@@ -16,8 +16,9 @@ class CreateDebtView(APIView):
 
         serializer = CreateDebtSerializer(data=data)
         if serializer.is_valid():
-            instance = serializer.save()
-            Debt.update_debt(instance)
+            serializer.save()
+            debtor = Debtor.objects.get(id=data.get('debtor'))
+            debtor.update_debt()
             return Response({"message":"Debt created correctly"}, status=HTTP_200_OK)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

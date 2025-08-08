@@ -13,7 +13,7 @@ class CreateDebtSerializer(serializers.ModelSerializer):
         debt = data.get('debt')
         debtor = data.get('debtor')
 
-        if description is None or debtor is None:
+        if description is None or debtor is None or debt is None:
             raise serializers.ValidationError('Require fields are missing ("description", "debt", "debtor")')
 
         if debt == 0:

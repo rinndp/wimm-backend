@@ -17,5 +17,14 @@ class Debtor(models.Model):
         verbose_name = 'Deudor'
         verbose_name_plural = 'Deudores'
 
+    def update_debt(self):
+        from debts.models import Debt
+        debts_from_debtor = Debt.objects.filter(debtor=self).all()
+        total_debt = 0
+        for debt_object in debts_from_debtor:
+            total_debt += debt_object.debt
+        self.debt = total_debt
+        self.save()
+
     def __str__(self):
-        return f"{self.name} - {self.debt}"
+        return f"{self.name} - {self.debt} - {self.user.slug}"

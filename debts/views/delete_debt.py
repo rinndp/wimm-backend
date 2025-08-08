@@ -1,4 +1,3 @@
-from django.views import View
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
@@ -19,7 +18,7 @@ class DeleteDebtView(APIView):
                 status=HTTP_400_BAD_REQUEST)
 
         debt.delete()
-        Debt.update_debt(debt)
+        debt.debtor.update_debt()
         return Response({"message":"Debt deleted correclty"}, status=HTTP_200_OK)
 
 

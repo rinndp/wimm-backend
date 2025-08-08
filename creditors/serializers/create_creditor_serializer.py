@@ -1,16 +1,16 @@
 from rest_framework import serializers
-from debtors.models import Debtor
+from creditors.models import Creditor
 from users.models import CustomUser
 
 
-class CreateDebtorSerializer(serializers.ModelSerializer):
+class CreateCreditorSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
         slug_field='slug',
         queryset=CustomUser.objects.all()
     )
 
     class Meta:
-        model = Debtor
+        model = Creditor
         fields = ('name', 'user',)
 
     def validate(self, data):
@@ -20,10 +20,10 @@ class CreateDebtorSerializer(serializers.ModelSerializer):
         if name is None:
             raise serializers.ValidationError('Name is required')
 
-        if len(name) <= 1:
+        if len(name) < 1:
             raise serializers.ValidationError('Name must have at least 2 characters')
 
-        if not user:
+        if user is None:
             raise serializers.ValidationError('User is required')
 
         return data

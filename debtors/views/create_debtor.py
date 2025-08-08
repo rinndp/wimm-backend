@@ -13,11 +13,6 @@ class CreateDebtorView(APIView):
 
     def post(self, request):
         data = request.data
-        debt = data.get("debt")
-
-        if debt is None:
-            data["debt"] = 0
-
         serializer = CreateDebtorSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
