@@ -65,7 +65,7 @@ WSGI_APPLICATION = 'wimm.wsgi.application'
 # --- Base de datos ---
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
+        default="postgresql://rinndp:0bMeuqRvOtduN0DaY1hfYind3BzpKFX2@dpg-d2lgnq75r7bs73dmm25g-a/wimm",
         conn_max_age=600,
         ssl_require=True
     )
