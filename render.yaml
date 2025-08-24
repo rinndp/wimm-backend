@@ -9,7 +9,7 @@ services:
     name: wimm-backend
     env: python
     plan: free
-    region: oregon
+    region: frankfurt
     branch: master
     buildCommand: |
       pip install -r requirements.txt
