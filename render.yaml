@@ -1,0 +1,26 @@
+databases:
+  - name: wimm-db
+    databaseName: wimm-db
+    user: rinndp
+    plan: free
+
+services:
+  - type: web
+    name: wimm-backend
+    env: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn wimm.wsgi:application
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: wimm-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
