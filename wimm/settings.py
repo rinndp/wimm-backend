@@ -9,9 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- Seguridad ---
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv("DEBUG", "False")
 
-ALLOWED_HOSTS = ["*"]  # Puedes poner tu dominio de Render después
+ALLOWED_HOSTS = ["wimm-backend.onrender.com"]
 
 # --- Aplicaciones ---
 INSTALLED_APPS = [
@@ -21,8 +21,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Tus apps
     'users',
     'debtors',
     'debts',
@@ -65,7 +63,7 @@ WSGI_APPLICATION = 'wimm.wsgi.application'
 # --- Base de datos ---
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgresql://rinndp:0bMeuqRvOtduN0DaY1hfYind3BzpKFX2@dpg-d2lgnq75r7bs73dmm25g-a/wimm",
+        default=os.getenv("DATABASE_URL"),
         conn_max_age=600,
         ssl_require=True
     )
