@@ -5,6 +5,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
 
 from users.models import CustomUser
+from users.serializers.register_user_serializer import RegisterUserSerializer
 
 
 class RegisterView(APIView):
@@ -15,14 +16,17 @@ class RegisterView(APIView):
         email = data.get('email')
         password = data.get('password')
 
-        if email is None or password is None:
-            return Response({'error': 'Please provide email and password'}, status=HTTP_400_BAD_REQUEST)
+        if CustomUser.objects.filter(email=email).exists():
+            return Response({'error': 'Email already registered'}, status=HTTP_400_BAD_REQUEST)
 
-        try:
+        serializer = RegisterUserSerializer(data=data)
+        if serializer.is_valid():
             CustomUser.objects.create_user(email, password)
-        except Exception as e:
-            return Response({'error': str(e)}, status=HTTP_400_BAD_REQUEST)
+            return Response({"message": "User created successfully"}, status=HTTP_200_OK)
 
-        return Response({"message": "User created successfully"}, status=HTTP_200_OK)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+
 
 
